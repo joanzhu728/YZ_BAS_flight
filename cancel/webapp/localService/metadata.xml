@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZWKL_FLIGHTBOOKING_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZWL_C_FILBOOKType" sap:label="フライト予約ワークリスト" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FlightNo"/>
+                    <PropertyRef Name="FlightDate"/>
+                    <PropertyRef Name="BookingNumber"/>
+                </Key>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名"/>
+                <Property Name="FlightDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="フライト日付" sap:quickinfo="Flight date"/>
+                <Property Name="BookingNumber" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="予約番号" sap:quickinfo="Booking number"/>
+                <Property Name="CustomerID" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="乗客番号" sap:quickinfo="Customer Number"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="25" sap:label="乗客名" sap:quickinfo="Name of the Passenger"/>
+                <Property Name="FlightClass" Type="Edm.String" MaxLength="8" sap:label="フライトクラス"/>
+                <Property Name="BookingType" Type="Edm.String" MaxLength="19" sap:label="予約タイプ"/>
+                <Property Name="Airfare" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="AirfareCurrency" sap:label="予約価格" sap:quickinfo="Booking price in foreign currency (dependent on location)"/>
+                <Property Name="AirfareCurrency" Type="Edm.String" MaxLength="5" sap:label="予約価格通貨" sap:quickinfo="Payment currency" sap:semantics="currency-code"/>
+                <Property Name="ApprovedBy" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="承認者" sap:quickinfo="Last Changed By"/>
+                <Property Name="ApprovedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="承認日" sap:quickinfo="Date of Last Change"/>
+                <Property Name="IsActiveCancel" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="TRUE" sap:quickinfo="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+                <Property Name="IsActiveKeep" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="TRUE" sap:quickinfo="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+            </EntityType>
+            <EntityContainer Name="ZWKL_FLIGHTBOOKING_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZWL_C_FILBOOK" EntityType="ZWKL_FLIGHTBOOKING_SRV.ZWL_C_FILBOOKType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <FunctionImport Name="Approve" ReturnType="ZWKL_FLIGHTBOOKING_SRV.ZWL_C_FILBOOKType" EntitySet="ZWL_C_FILBOOK" m:HttpMethod="PUT" sap:action-for="ZWKL_FLIGHTBOOKING_SRV.ZWL_C_FILBOOKType" sap:applicable-path="IsActiveCancel">
+                    <Parameter Name="FlightNo" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="FlightDate" Type="Edm.DateTime" Mode="In" Precision="0"/>
+                    <Parameter Name="BookingNumber" Type="Edm.String" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="Cancel" ReturnType="ZWKL_FLIGHTBOOKING_SRV.ZWL_C_FILBOOKType" EntitySet="ZWL_C_FILBOOK" m:HttpMethod="PUT" sap:action-for="ZWKL_FLIGHTBOOKING_SRV.ZWL_C_FILBOOKType" sap:applicable-path="IsActiveKeep">
+                    <Parameter Name="FlightNo" Type="Edm.String" Mode="In"/>
+                    <Parameter Name="FlightDate" Type="Edm.DateTime" Mode="In" Precision="0"/>
+                    <Parameter Name="BookingNumber" Type="Edm.String" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="ZWKL_FLIGHTBOOKING_SRV.ZWKL_FLIGHTBOOKING_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://jpsaperp09.local:8080/sap/opu/odata/sap/ZWKL_FLIGHTBOOKING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://jpsaperp09.local:8080/sap/opu/odata/sap/ZWKL_FLIGHTBOOKING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

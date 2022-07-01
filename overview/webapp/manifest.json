@@ -1,0 +1,194 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "overview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap-ux/fiori-elements-writer:ovp",
+            "version": "0.1.9"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZOVW_FLIGHTBOOKING_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZOVW_FLIGHTBOOKING_ANNO_MDL",
+                        "annotation"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "ZOVW_FLIGHTBOOKING_ANNO_MDL": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZOVW_FLIGHTBOOKING_ANNO_MDL',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/ZOVW_FLIGHTBOOKING_ANNO_MDL.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "overview-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "overview",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.100.2",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.f": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ovp": {},
+                "sap.ui.rta": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "overview.i18n.i18n"
+                }
+            },
+            "mainModel": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainModel",
+        "globalFilterEntityType": "ZOV_C_FilterType",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": false,
+        "cards": {
+            "FlightListCard": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.list",
+                "settings": {
+                    "title": "Flight Info",
+                    "subTitle": "Flight Route",
+                    "entitySet": "ZOV_C_Flight",
+                    "listType": "extended",
+                    "listFlavor": "standard",
+                    "sortOrder": "ascending",
+                    "sortBy": "FlightNo",
+                    "tabs": [
+                        {
+                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#FlightListCard_tab1",
+                        "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Filter",
+                        "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AirlineUrl",
+                        "value": "tab 1"
+                        },
+                        {
+                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#FlightListCard_tab2",
+                        "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Filter",
+                        "value": "tab 2"
+                        }
+                    ],
+                    "defaultSpan": {
+                        "rows": 5,
+                        "cols": 1
+                    }
+                }
+                },  
+                "FlightListCard2": {
+                    "model": "mainModel",
+                    "template": "sap.ovp.cards.list",
+                    "settings": {
+                        "title": "Flight Schedule",
+                        "subTitle": "Load Factor",
+                        "entitySet": "ZOV_C_FlightSchedule",
+                        "listType": "extended",
+                        "listFlavor": "bar",
+                        "sortOrder": "ascending",
+                        "sortBy": "FlightNo",
+                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#FlightListCard2",
+                        "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Filter",
+                        "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AirlineUrl",
+                        "defaultSpan": {
+                            "rows": 10,
+                            "cols": 1
+                        }
+                    }
+                    }            
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    }
+}

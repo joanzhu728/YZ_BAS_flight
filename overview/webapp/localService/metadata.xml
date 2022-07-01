@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://jpsaperp09.local:8080/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZOVW_FLIGHTBOOKING_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZOV_B_FlightType" sap:label="フライト情報" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                    <PropertyRef Name="FlightNo"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名"/>
+                <Property Name="AirlineName" Type="Edm.String" MaxLength="20" sap:label="航空会社名" sap:quickinfo="Airline name"/>
+                <Property Name="DepartureCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発国" sap:quickinfo="Country Key"/>
+                <Property Name="DepartureCity" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="出発都市" sap:quickinfo="Departure city"/>
+                <Property Name="DepartureAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発空港" sap:quickinfo="Departure airport"/>
+                <Property Name="DestinationCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着国" sap:quickinfo="Country Key"/>
+                <Property Name="DestinationCity" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="到着都市" sap:quickinfo="Arrival city"/>
+                <Property Name="DestinationAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着空港" sap:quickinfo="Destination airport"/>
+                <Property Name="Route" Type="Edm.String" MaxLength="10" sap:label="経路"/>
+                <Property Name="FlightTime" Type="Edm.Int32" sap:label="飛行時間" sap:quickinfo="Flight time"/>
+                <Property Name="DepartureTime" Type="Edm.Time" Precision="0" sap:label="出発時刻" sap:quickinfo="Departure time"/>
+                <Property Name="ArrivalTime" Type="Edm.Time" Precision="0" sap:label="到着時刻" sap:quickinfo="Arrival time"/>
+                <Property Name="Distance" Type="Edm.Decimal" Precision="9" Scale="4" sap:unit="DistanceUnit" sap:label="距離" sap:quickinfo="Distance"/>
+                <Property Name="DistanceUnit" Type="Edm.String" MaxLength="3" sap:label="距離単位" sap:quickinfo="Mass unit of distance (kms, miles)" sap:semantics="unit-of-measure"/>
+                <Property Name="FlightType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="フライトタイプ" sap:quickinfo="Flight type"/>
+                <Property Name="FlightlDays" Type="Edm.Byte" sap:label="n 日後到着" sap:quickinfo="Arrival n day(s) later"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_AirlineType" sap:label="航空会社" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="AirlineName" Type="Edm.String" MaxLength="20" sap:label="航空会社名" sap:quickinfo="Airline name"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_CustomersType" sap:label="フライト乗客情報" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CustomerNumber"/>
+                </Key>
+                <Property Name="CustomerNumber" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="乗客番号"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="25" sap:label="乗客名" sap:quickinfo="Customer name"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="国籍" sap:quickinfo="Country Code"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="言語" sap:quickinfo="2-Character SAP Language Code"/>
+                <Property Name="CustomerType" Type="Edm.String" MaxLength="2" sap:label="法人/個人"/>
+                <Property Name="Telephone" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="電話番号" sap:quickinfo="Telephone number of flight customer" sap:semantics="tel"/>
+                <Property Name="CustomerEmail" Type="Edm.String" MaxLength="40" sap:label="電子メール" sap:quickinfo="Customer e-mail address" sap:semantics="email"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_FilterType" sap:label="フライト予約概要ページフィルタ" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                    <PropertyRef Name="FlightNo"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名" sap:value-list="standard"/>
+                <Property Name="DepartureCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発国" sap:quickinfo="Country Key"/>
+                <Property Name="DepartureAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発空港" sap:quickinfo="Departure airport"/>
+                <Property Name="DestinationCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着国" sap:quickinfo="Country Key"/>
+                <Property Name="DestinationAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着空港" sap:quickinfo="Destination airport"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_7840440F1A6FEB6624E2CC0049778E1D" FromRole="FromRole_assoc_7840440F1A6FEB6624E2CC0049778E1D" ToRole="ToRole_assoc_7840440F1A6FEB6624E2CC0049778E1D"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_FlightType" sap:label="フライト情報" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                    <PropertyRef Name="FlightNo"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名"/>
+                <Property Name="AirlineName" Type="Edm.String" MaxLength="20" sap:label="航空会社名" sap:quickinfo="Airline name"/>
+                <Property Name="DepartureCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発国" sap:quickinfo="Country Key"/>
+                <Property Name="DepartureCity" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="出発都市" sap:quickinfo="Departure city"/>
+                <Property Name="DepartureAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="出発空港" sap:quickinfo="Departure airport"/>
+                <Property Name="DestinationCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着国" sap:quickinfo="Country Key"/>
+                <Property Name="DestinationCity" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="到着都市" sap:quickinfo="Arrival city"/>
+                <Property Name="DestinationAirport" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="到着空港" sap:quickinfo="Destination airport"/>
+                <Property Name="Route" Type="Edm.String" MaxLength="10" sap:label="経路"/>
+                <Property Name="Distance" Type="Edm.Decimal" Precision="9" Scale="4" sap:unit="DistanceUnit" sap:label="距離" sap:quickinfo="Distance"/>
+                <Property Name="DistanceUnit" Type="Edm.String" MaxLength="3" sap:label="距離単位" sap:quickinfo="Mass unit of distance (kms, miles)" sap:semantics="unit-of-measure"/>
+                <Property Name="AirlineURL" Type="Edm.String" MaxLength="255" sap:label="航空会社サイト" sap:quickinfo="Airline URL"/>
+                <NavigationProperty Name="to_Airline" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_C681AD67C83508A8EFE4B5190CCFB73F" FromRole="FromRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F" ToRole="ToRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_FlightBookingType" sap:label="フライト予約" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                    <PropertyRef Name="FlightNo"/>
+                    <PropertyRef Name="FlightDate"/>
+                    <PropertyRef Name="BookingNumber"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名"/>
+                <Property Name="FlightDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="フライト日付" sap:quickinfo="Flight date"/>
+                <Property Name="BookingNumber" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="予約番号" sap:quickinfo="Booking number"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="25" sap:label="乗客名" sap:quickinfo="Name of the Passenger"/>
+                <Property Name="FlightClass" Type="Edm.String" MaxLength="8" sap:label="フライトクラス"/>
+                <Property Name="BookingDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="予約日" sap:quickinfo="Booking Date"/>
+                <Property Name="BookingType" Type="Edm.String" MaxLength="19" sap:label="予約タイプ"/>
+                <Property Name="InvoiceFlag" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="請求書発行フラグ" sap:quickinfo="Invoice flag"/>
+                <Property Name="LuggageWeight" Type="Edm.Decimal" Precision="31" Scale="14" sap:unit="LuggageWeightUnit" sap:label="手荷物重量(KG)"/>
+                <Property Name="Payment" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="PaymentCurrency" sap:label="予約料金" sap:quickinfo="Booking price in foreign currency (dependent on location)"/>
+                <Property Name="Airfare" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="AirfareCurrency" sap:label="予約価格(USD)"/>
+                <Property Name="LuggageWeightUnit" Type="Edm.String" MaxLength="3" sap:label="手荷物重量単位" sap:semantics="unit-of-measure"/>
+                <Property Name="PaymentCurrency" Type="Edm.String" MaxLength="5" sap:label="支払通貨" sap:quickinfo="Payment currency" sap:semantics="currency-code"/>
+                <Property Name="AirfareCurrency" Type="Edm.String" MaxLength="5" sap:label="予約価格通貨" sap:semantics="currency-code"/>
+                <NavigationProperty Name="to_Customer" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_5146BD933C7367B1E483D71BFC6E163B" FromRole="FromRole_assoc_5146BD933C7367B1E483D71BFC6E163B" ToRole="ToRole_assoc_5146BD933C7367B1E483D71BFC6E163B"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_D893AAF8AF58E3ABD94A679E9569E6CE" FromRole="FromRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE" ToRole="ToRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE"/>
+                <NavigationProperty Name="to_FlightSchedule" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_67377E0D1A53728B392823C3DC1C98DA" FromRole="FromRole_assoc_67377E0D1A53728B392823C3DC1C98DA" ToRole="ToRole_assoc_67377E0D1A53728B392823C3DC1C98DA"/>
+            </EntityType>
+            <EntityType Name="ZOV_C_FlightScheduleType" sap:label="フライト日程" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AirlineCode"/>
+                    <PropertyRef Name="FlightNo"/>
+                    <PropertyRef Name="FlightDate"/>
+                </Key>
+                <Property Name="AirlineCode" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="航空会社" sap:quickinfo="Airline Code"/>
+                <Property Name="FlightNo" Type="Edm.String" Nullable="false" MaxLength="7" sap:label="便名"/>
+                <Property Name="FlightDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="フライト日付" sap:quickinfo="Flight date"/>
+                <Property Name="AircraftType" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="機種" sap:quickinfo="Aircraft Type"/>
+                <Property Name="EconomyClassCapacity" Type="Edm.Int32" sap:label="エコノミークラス定員数" sap:quickinfo="Maximum capacity in economy class"/>
+                <Property Name="EconomyClassOccupied" Type="Edm.Int32" sap:label="エコノミークラス予約済席数" sap:quickinfo="Occupied seats in economy class"/>
+                <Property Name="BusinessClassCapacity" Type="Edm.Int32" sap:label="ビジネスクラス定員数" sap:quickinfo="Maximum capacity in business class"/>
+                <Property Name="BusinessClassOccupied" Type="Edm.Int32" sap:label="ビジネスクラス予約済席数" sap:quickinfo="Occupied seats in business class"/>
+                <Property Name="FirstClassCapacity" Type="Edm.Int32" sap:label="ファーストクラス定員数" sap:quickinfo="Maximum capacity in first class"/>
+                <Property Name="FirstClassOccupied" Type="Edm.Int32" sap:label="ファーストクラス予約済席数" sap:quickinfo="Occupied seats in first class"/>
+                <Property Name="Capacity" Type="Edm.Int32" sap:label="定員数"/>
+                <Property Name="Occupied" Type="Edm.Int32" sap:label="予約済席数"/>
+                <Property Name="LoadFactor" Type="Edm.Decimal" Precision="12" Scale="2" sap:unit="Percentage" sap:label="搭乗率(%)"/>
+                <Property Name="Percentage" Type="Edm.String" MaxLength="3" sap:label="%" sap:semantics="unit-of-measure"/>
+                <Property Name="Manufacturer" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="飛行機製造元" sap:quickinfo="Plane manufacturer"/>
+                <NavigationProperty Name="to_Airline" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_F42D65974FC0C93C5A41BF849C0AB17D" FromRole="FromRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D" ToRole="ToRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZOVW_FLIGHTBOOKING_SRV.assoc_041C178D85725CA5E03B8BB9E0ECED51" FromRole="FromRole_assoc_041C178D85725CA5E03B8BB9E0ECED51" ToRole="ToRole_assoc_041C178D85725CA5E03B8BB9E0ECED51"/>
+            </EntityType>
+            <Association Name="assoc_F42D65974FC0C93C5A41BF849C0AB17D" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightScheduleType" Multiplicity="1" Role="FromRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_AirlineType" Multiplicity="0..1" Role="ToRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D"/>
+            </Association>
+            <Association Name="assoc_041C178D85725CA5E03B8BB9E0ECED51" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightScheduleType" Multiplicity="1" Role="FromRole_assoc_041C178D85725CA5E03B8BB9E0ECED51"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightType" Multiplicity="0..1" Role="ToRole_assoc_041C178D85725CA5E03B8BB9E0ECED51"/>
+            </Association>
+            <Association Name="assoc_5146BD933C7367B1E483D71BFC6E163B" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightBookingType" Multiplicity="1" Role="FromRole_assoc_5146BD933C7367B1E483D71BFC6E163B"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_CustomersType" Multiplicity="0..1" Role="ToRole_assoc_5146BD933C7367B1E483D71BFC6E163B"/>
+            </Association>
+            <Association Name="assoc_D893AAF8AF58E3ABD94A679E9569E6CE" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightBookingType" Multiplicity="1" Role="FromRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightType" Multiplicity="0..1" Role="ToRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE"/>
+            </Association>
+            <Association Name="assoc_67377E0D1A53728B392823C3DC1C98DA" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightBookingType" Multiplicity="1" Role="FromRole_assoc_67377E0D1A53728B392823C3DC1C98DA"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightScheduleType" Multiplicity="0..1" Role="ToRole_assoc_67377E0D1A53728B392823C3DC1C98DA"/>
+            </Association>
+            <Association Name="assoc_7840440F1A6FEB6624E2CC0049778E1D" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FilterType" Multiplicity="1" Role="FromRole_assoc_7840440F1A6FEB6624E2CC0049778E1D"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_B_FlightType" Multiplicity="1" Role="ToRole_assoc_7840440F1A6FEB6624E2CC0049778E1D"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_7840440F1A6FEB6624E2CC0049778E1D">
+                        <PropertyRef Name="FlightNo"/>
+                        <PropertyRef Name="AirlineCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_7840440F1A6FEB6624E2CC0049778E1D">
+                        <PropertyRef Name="FlightNo"/>
+                        <PropertyRef Name="AirlineCode"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_C681AD67C83508A8EFE4B5190CCFB73F" sap:content-version="1">
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightType" Multiplicity="1" Role="FromRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F"/>
+                <End Type="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_AirlineType" Multiplicity="0..1" Role="ToRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F"/>
+            </Association>
+            <EntityContainer Name="ZOVW_FLIGHTBOOKING_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZOV_B_Flight" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_B_FlightType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_Airline" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_AirlineType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_Customers" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_CustomersType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_Filter" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FilterType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_Flight" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_FlightBooking" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightBookingType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZOV_C_FlightSchedule" EntityType="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FlightScheduleType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <AssociationSet Name="assoc_C681AD67C83508A8EFE4B5190CCFB73F" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_C681AD67C83508A8EFE4B5190CCFB73F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_Flight" Role="FromRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F"/>
+                    <End EntitySet="ZOV_C_Airline" Role="ToRole_assoc_C681AD67C83508A8EFE4B5190CCFB73F"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5146BD933C7367B1E483D71BFC6E163B" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_5146BD933C7367B1E483D71BFC6E163B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_FlightBooking" Role="FromRole_assoc_5146BD933C7367B1E483D71BFC6E163B"/>
+                    <End EntitySet="ZOV_C_Customers" Role="ToRole_assoc_5146BD933C7367B1E483D71BFC6E163B"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_67377E0D1A53728B392823C3DC1C98DA" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_67377E0D1A53728B392823C3DC1C98DA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_FlightBooking" Role="FromRole_assoc_67377E0D1A53728B392823C3DC1C98DA"/>
+                    <End EntitySet="ZOV_C_FlightSchedule" Role="ToRole_assoc_67377E0D1A53728B392823C3DC1C98DA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_F42D65974FC0C93C5A41BF849C0AB17D" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_F42D65974FC0C93C5A41BF849C0AB17D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_FlightSchedule" Role="FromRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D"/>
+                    <End EntitySet="ZOV_C_Airline" Role="ToRole_assoc_F42D65974FC0C93C5A41BF849C0AB17D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7840440F1A6FEB6624E2CC0049778E1D" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_7840440F1A6FEB6624E2CC0049778E1D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_Filter" Role="FromRole_assoc_7840440F1A6FEB6624E2CC0049778E1D"/>
+                    <End EntitySet="ZOV_B_Flight" Role="ToRole_assoc_7840440F1A6FEB6624E2CC0049778E1D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_041C178D85725CA5E03B8BB9E0ECED51" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_041C178D85725CA5E03B8BB9E0ECED51" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_FlightSchedule" Role="FromRole_assoc_041C178D85725CA5E03B8BB9E0ECED51"/>
+                    <End EntitySet="ZOV_C_Flight" Role="ToRole_assoc_041C178D85725CA5E03B8BB9E0ECED51"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_D893AAF8AF58E3ABD94A679E9569E6CE" Association="ZOVW_FLIGHTBOOKING_SRV.assoc_D893AAF8AF58E3ABD94A679E9569E6CE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZOV_C_FlightBooking" Role="FromRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE"/>
+                    <End EntitySet="ZOV_C_Flight" Role="ToRole_assoc_D893AAF8AF58E3ABD94A679E9569E6CE"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZOVW_FLIGHTBOOKING_SRV.ZOV_C_FilterType/FlightNo" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="フライト情報"/>
+                        <PropertyValue Property="CollectionPath" String="ZOV_B_Flight"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="AirlineCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="AirlineCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="FlightNo"/>
+                                    <PropertyValue Property="ValueListProperty" String="FlightNo"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZOVW_FLIGHTBOOKING_SRV.ZOVW_FLIGHTBOOKING_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://jpsaperp09.local:8080/sap/opu/odata/sap/ZOVW_FLIGHTBOOKING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://jpsaperp09.local:8080/sap/opu/odata/sap/ZOVW_FLIGHTBOOKING_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

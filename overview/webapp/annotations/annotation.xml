@@ -1,0 +1,144 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZOVW_FLIGHTBOOKING_SRV/$metadata">
+        <edmx:Include Namespace="ZOVW_FLIGHTBOOKING_SRV" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+<!-- List Card 1 --> 
+            <Annotations Target="SAP.ZOV_C_FlightType">
+<!-- Step1 Define DataPoint Annotation -->
+                <Annotation Term="UI.DataPoint" Qualifier="Distance">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
+                        <PropertyValue Property="Value" Path="Distance"/>
+                        <PropertyValue Property="Title" String="Distance"/>
+                        <PropertyValue Property="Description" String="Distance"/>
+                    </Record>
+                </Annotation>
+<!-- Step2 Define ListCard LineItem -->
+<!-- tab 1 -->
+                <Annotation Term="UI.LineItem" Qualifier="FlightListCard_tab1">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="FlightNo"/>
+                            <PropertyValue Property="Label" String="Flight No"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DepartureCountry"/>
+                            <PropertyValue Property="Label" String="Departure Country"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DestinationCountry"/>
+                            <PropertyValue Property="Label" String="Destination Country"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#Distance"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+<!-- tab 2 -->                
+                <Annotation Term="UI.LineItem" Qualifier="FlightListCard_tab2">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DepartureAirport"/>
+                            <PropertyValue Property="Label" String="Departure Airport"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DestinationAirport"/>
+                            <PropertyValue Property="Label" String="Destination Airport"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+<!-- Step3 Define SelectionVariant Annotation --> 
+                <Annotation Term="UI.SelectionVariant" Qualifier="Filter">
+                    <Record>
+<!-- Selection Options -->
+                        <PropertyValue Property="SelectOptions">
+                            <Collection>
+                                <Record Type="UI.SelectOptionType">
+                                    <PropertyValue Property="PropertyName" PropertyPath="FlightNo"/>
+                                    <PropertyValue Property="Ranges">
+                                        <Collection>
+                                            <Record Type="UI.SelectionRangeType">
+                                                <PropertyValue Property="Sign" EnumMember="UI.SelectionRangeSignType/I"/>
+                                                <PropertyValue Property="Option" EnumMember="UI.SelectionRangeOptionType/BT"/>
+                                                <PropertyValue Property="Low" String="LH0001"/>
+                                                <PropertyValue Property="High" String="LH9999"/>
+                                            </Record>
+                                        </Collection>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+<!-- Parameters -->
+                        <!-- <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="UI.Parameter">
+                                    <PropertyValue Property="PropertyName" PropertyPath="DepartureCountry"/>
+                                    <PropertyValue Property="PropertyValue" String="DE"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue> -->
+                    </Record>
+                </Annotation>
+<!-- Step4 Define Identification Annotation -->
+                <Annotation Term="UI.Identification" Qualifier="AirlineUrl">
+                    <Collection>
+                        <Record Type="UI.DataFieldWithUrl">
+                            <PropertyValue Property="Value" String="AirlineUrl"/>
+                            <PropertyValue Property="Url" Path="AirlineURL"/>
+                            <PropertyValue Property="Label" String="AirlineUrl"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+<!-- List Card 2 -->  
+            <Annotations Target="SAP.ZOV_C_FlightScheduleType">
+<!-- Step1 Define DataPoint Annotation -->
+                <Annotation Term="UI.DataPoint" Qualifier="LoadFactor">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Value" Path="LoadFactor"/>
+                        <PropertyValue Property="Title" String="Load Factor"/>
+                        <PropertyValue Property="Description" String="Load Factor"/>
+                        <PropertyValue Property="MinimumValue" Decimal="0.00"/>
+                        <PropertyValue Property="MaximumValue" Decimal="100.00"/>
+                        <PropertyValue Property="CriticalityCalculation">      
+                            <Record Type="UI.CriticalityCalculationType">
+                                <PropertyValue Property="ImprovementDirection" EnumMember="UI.ImprovementDirectionType/Maximize"/>
+                                <PropertyValue Property="DeviationRangeLowValue" Decimal="25.00"/>
+                                <PropertyValue Property="ToleranceRangeLowValue" Decimal="60.00"/>
+                            </Record>
+                        </PropertyValue>                 
+                    </Record>
+                </Annotation>
+<!-- Step2 Define ListCard LineItem -->
+                <Annotation Term="UI.LineItem" Qualifier="FlightListCard2">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="FlightNo"/>
+                            <PropertyValue Property="Label" String="Flight No"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="FlightDate"/>
+                            <PropertyValue Property="Label" String="Flight Date"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/Medium"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#LoadFactor"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
